@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --legacy-watch app/server.ts"
+    "dev": "nodemon --legacy-watch app/api.ts"
   },
   "dependencies": {
     "axios": "^0.27.2",
