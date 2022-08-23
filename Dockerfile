@@ -6,4 +6,6 @@ COPY . .
 
 RUN yarn
 
-CMD ["yarn", "dev"]
+RUN yarn build
+
+CMD ["yarn", "start"]

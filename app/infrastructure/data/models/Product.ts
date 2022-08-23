@@ -1,5 +1,4 @@
 import { Schema } from "mongoose"
-import app from "../../../server"
 import generateConnection from "../../service/connection-mongo"
 
 const generateModelProduct = async () => {
