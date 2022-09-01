@@ -1,6 +1,6 @@
-export type DataResponse = {
+export type HttpDataResponse<T> = {
     status: number,
-    data: any,
+    data: T | null,
     errors: ErrorGeneric[]
 }
 
