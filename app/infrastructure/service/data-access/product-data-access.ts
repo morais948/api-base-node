@@ -1,53 +1,69 @@
-import { ProductDTO} from '../../../domain/data/entity/product'
-import { ProductModelService } from "../product-model-service"
+import { DataResponse } from '../../../application/data/data-response'
+import { ProductDTO } from '../../../domain/data/entity/product'
+import { GenerateConnectionMongo } from '../../../application/service/connection-mongo'
+import { Connection } from 'mongoose'
 
 export interface ProductDataAccess {
-    create(productDto: ProductDTO): Promise<ProductDTO | Error>
+  create(productDto: ProductDTO): Promise<DataResponse<ProductDTO>>
 
-    get(): Promise<ProductDTO[] | Error>
+  get(): Promise<DataResponse<ProductDTO[]>>
 }
 
-export class ProductDataAccessImpl implements ProductDataAccess{
+export class ProductDataAccessImpl implements ProductDataAccess {
 
-    private readonly _productModelService: ProductModelService
+  private readonly _connection: Connection
 
-    constructor(productModelService: ProductModelService){
-        this._productModelService = productModelService
+  constructor(connection: Connection) {
+    this._connection = connection
+  }
+
+  async create(productDto: ProductDTO): Promise<DataResponse<ProductDTO>> {
+    try {
+      const dataResponse = await this._connection.db.collection('products').insertOne({
+        name: productDto.name,
+        price: productDto.price,
+        description: productDto.description
+      })
+
+      return {
+        success: false,
+        data: {
+          ...productDto,
+          id: dataResponse.insertedId.toString()
+        } as ProductDTO,
+        errors: []
+      } as DataResponse<ProductDTO>
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        errors: []
+      } as DataResponse<ProductDTO>
     }
+  }
 
-    async create(productDto: ProductDTO): Promise<ProductDTO | Error>{
-        try {
-            const product = this._productModelService.generateModel()
-            product.name = productDto.name
-            product.price = productDto.price
-            product.description = productDto.description
-            const productData = await product.save()
-    
-            const productFormated = {
-                id: productData._id,
-                name: productData.name,
-                price: productData.price,
-                description: productData.description
-            } as ProductDTO
+  async get(): Promise<DataResponse<ProductDTO[]>> {
+    try {
+      const dataResponse = await this._connection.db.collection('products').find({}).toArray()
 
-            return productFormated
-        } catch (error) {
-            return new Error('Erro inesperado.')
-        }
+      return {
+        success: false,
+        data: dataResponse.map((el: any) => {
+          return {
+            id: el._id,
+            name: el.name,
+            price: el.price,
+            description: el.description
+          }
+        }),
+        errors: []
+      } as DataResponse<ProductDTO[]>
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        errors: []
+      } as DataResponse<ProductDTO[]>
     }
-
-    async get(): Promise<ProductDTO[] | Error>{
-        //metodo com erro, ajustar depois
-        try {
-            const product = this._productModelService.generateModel()
-            const productData = await product.get()
-
-            console.log(productData)
-
-            return new Error('Erro inesperado.')
-        } catch (error) {
-            console.log(error)
-            return new Error('Erro inesperado.')
-        }
-    }
+  }
 }

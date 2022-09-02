@@ -1,9 +1,6 @@
-export type HttpDataResponse<T> = {
-    status: number,
-    data: T | null,
-    errors: ErrorGeneric[]
-}
+import { DataResponse } from './data-response'
 
-export type ErrorGeneric = {
-    message: string
+export type HttpDataResponse<T> = {
+  statusCode: number
+  body: DataResponse<T>
 }
