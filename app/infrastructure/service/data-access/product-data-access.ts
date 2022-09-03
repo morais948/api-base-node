@@ -1,6 +1,5 @@
 import { DataResponse } from '../../../application/data/data-response'
 import { ProductDTO } from '../../../domain/data/entity/product'
-import { GenerateConnectionMongo } from '../../../application/service/connection-mongo'
 import { Connection } from 'mongoose'
 
 export interface ProductDataAccess {

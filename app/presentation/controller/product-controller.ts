@@ -1,7 +1,6 @@
 import { HttpDataResponse } from "../../application/data/http-data-response";
 import { ProductDataAccess } from "../../infrastructure/service/data-access/product-data-access";
 import { ProductDTO } from "../../domain/data/entity/product";
-import { DataResponse } from "../../application/data/data-response";
 import { HttpDataResponseBuilder } from "../../application/data/http-data-response-builder";
 
 export interface ProductController {
