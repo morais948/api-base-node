@@ -2,7 +2,7 @@ import * as express from 'express'
 
 const Router: express.Router = express.Router()
 
-import { ProductDTO } from '../domain/data/entity/product';
+import { Product } from '../domain/data/entity/product';
 import { container } from '../container';
 
 Router.post('/product/create', async (req: express.Request, res: express.Response) => {
@@ -12,7 +12,7 @@ Router.post('/product/create', async (req: express.Request, res: express.Respons
         name, 
         price, 
         description
-    } as ProductDTO
+    } as Product
 
     const containerInject = container()
     const productController = await containerInject.createProductController()

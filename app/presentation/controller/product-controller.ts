@@ -1,12 +1,12 @@
 import { HttpDataResponse } from "../../application/data/http-data-response";
 import { ProductDataAccess } from "../../infrastructure/service/data-access/product-data-access";
-import { ProductDTO } from "../../domain/data/entity/product";
+import { Product } from "../../domain/data/entity/product";
 import { HttpDataResponseBuilder } from "../../application/data/http-data-response-builder";
 
 export interface ProductController {
-  create(productDto: ProductDTO): Promise<HttpDataResponse<ProductDTO>>
+  create(product: Product): Promise<HttpDataResponse<Product>>
 
-  get(): Promise<HttpDataResponse<ProductDTO[]>>
+  get(): Promise<HttpDataResponse<Product[]>>
 }
 
 export class ProductControllerImpl {
@@ -17,47 +17,47 @@ export class ProductControllerImpl {
     this.productDataAccess = productDataAccess
   }
 
-  async create(productDto: ProductDTO): Promise<HttpDataResponse<ProductDTO>> {
-    const responseData = await this.productDataAccess.create(productDto)
+  async create(product: Product): Promise<HttpDataResponse<Product>> {
+    const responseData = await this.productDataAccess.create(product)
 
     if (responseData.errors.length > 0 && !responseData.success) {
-      return new HttpDataResponseBuilder<ProductDTO>()
+      return new HttpDataResponseBuilder<Product>()
         .create()
         .withInfoErrorMessage(responseData.errors)
         .build()
     }
 
     if (responseData.data) {
-      return new HttpDataResponseBuilder<ProductDTO>()
+      return new HttpDataResponseBuilder<Product>()
         .create()
         .withCreatedMessage(responseData.data)
         .build()
     }
 
-    return new HttpDataResponseBuilder<ProductDTO>()
+    return new HttpDataResponseBuilder<Product>()
       .create()
       .withInternalErrorMessage()
       .build()
   }
 
-  async get(): Promise<HttpDataResponse<ProductDTO[]>> {
+  async get(): Promise<HttpDataResponse<Product[]>> {
     const responseData = await this.productDataAccess.get()
 
     if (responseData.errors.length > 0 && !responseData.success) {
-      return new HttpDataResponseBuilder<ProductDTO[]>()
+      return new HttpDataResponseBuilder<Product[]>()
         .create()
         .withInfoErrorMessage(responseData.errors)
         .build()
     }
 
     if (responseData.data) {
-      return new HttpDataResponseBuilder<ProductDTO[]>()
+      return new HttpDataResponseBuilder<Product[]>()
         .create()
         .withOkMessage(responseData.data)
         .build()
     }
 
-    return new HttpDataResponseBuilder<ProductDTO[]>()
+    return new HttpDataResponseBuilder<Product[]>()
       .create()
       .withInternalErrorMessage()
       .build()

@@ -1,11 +1,11 @@
 import { DataResponse } from '../../../application/data/data-response'
-import { ProductDTO } from '../../../domain/data/entity/product'
+import { Product } from '../../../domain/data/entity/product'
 import { Connection } from 'mongoose'
 
 export interface ProductDataAccess {
-  create(productDto: ProductDTO): Promise<DataResponse<ProductDTO>>
+  create(productDto: Product): Promise<DataResponse<Product>>
 
-  get(): Promise<DataResponse<ProductDTO[]>>
+  get(): Promise<DataResponse<Product[]>>
 }
 
 export class ProductDataAccessImpl implements ProductDataAccess {
@@ -16,7 +16,7 @@ export class ProductDataAccessImpl implements ProductDataAccess {
     this._connection = connection
   }
 
-  async create(productDto: ProductDTO): Promise<DataResponse<ProductDTO>> {
+  async create(productDto: Product): Promise<DataResponse<Product>> {
     try {
       const dataResponse = await this._connection.db.collection('products').insertOne({
         name: productDto.name,
@@ -29,19 +29,19 @@ export class ProductDataAccessImpl implements ProductDataAccess {
         data: {
           ...productDto,
           id: dataResponse.insertedId.toString()
-        } as ProductDTO,
+        } as Product,
         errors: []
-      } as DataResponse<ProductDTO>
+      } as DataResponse<Product>
     } catch (error) {
       return {
         success: false,
         data: null,
         errors: []
-      } as DataResponse<ProductDTO>
+      } as DataResponse<Product>
     }
   }
 
-  async get(): Promise<DataResponse<ProductDTO[]>> {
+  async get(): Promise<DataResponse<Product[]>> {
     try {
       const dataResponse = await this._connection.db.collection('products').find({}).toArray()
 
@@ -56,13 +56,13 @@ export class ProductDataAccessImpl implements ProductDataAccess {
           }
         }),
         errors: []
-      } as DataResponse<ProductDTO[]>
+      } as DataResponse<Product[]>
     } catch (error) {
       return {
         success: false,
         data: null,
         errors: []
-      } as DataResponse<ProductDTO[]>
+      } as DataResponse<Product[]>
     }
   }
 }
