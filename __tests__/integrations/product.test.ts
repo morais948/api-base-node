@@ -17,4 +17,12 @@ describe('Testes do Product', () => {
     //Assert
     expect(response.status).toBe(201)
   })
+
+  it('deve retornar todos os produtos', async () => {
+    //Arrange Act
+    const response = await request(app).get('/product')
+
+    //Assert
+    expect(response.status).toBe(200)
+  })
 })

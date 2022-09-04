@@ -70,22 +70,6 @@ export class HttpDataResponseBuilder<T> {
     return this
   }
 
-  withLogErrorMessage(data: T): HttpDataResponseBuilder<T> {
-    this._instance = {
-      statusCode: 200,
-      body: {
-        success: true,
-        data: data,
-        errors: [
-          {
-            message: 'Houve um erro inesperado ao gerar o log.'
-          }
-        ]
-      } as DataResponse<T>
-    } as HttpDataResponse<T>
-    return this
-  }
-
   withForbiddenErrorMessage(
     errors?: ErrorDataResponse[] | null
   ): HttpDataResponseBuilder<T> {

@@ -13,7 +13,7 @@ module.exports = {
     '!app/server.ts',
     '!app/container.ts',
   ],
-  coverageDirectory: '<rootDir>/coverage',
+  coverageDirectory: './__tests__/coverage',
   coveragePathIgnorePatterns: ['<rootDir>/node_modules'],
   transform: {
     '^.+\\.(js|jsx)?$': 'babel-jest',
@@ -22,5 +22,6 @@ module.exports = {
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
   testEnvironment: 'node',
   bail: false,
-  clearMocks: true
+  clearMocks: true,
+  preset: "@shelf/jest-mongodb"
 }

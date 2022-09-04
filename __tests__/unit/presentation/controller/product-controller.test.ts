@@ -1,9 +1,9 @@
-import { DataResponse } from "../../app/application/data/data-response"
-import { GenerateConnectionMongoImpl } from "../../app/application/service/connection-mongo"
-import { Product } from "../../app/domain/data/entity/product"
-import { ProductDataAccessBuilder } from "../../app/infrastructure/service/data-access/product-data-acces-builder"
-import { ProductControllerImpl } from "../../app/presentation/controller/product-controller"
-import { InternalError } from '../../app/application/data/http-data-response-builder'
+import { DataResponse } from "../../../../app/application/data/data-response"
+import { GenerateConnectionMongoImpl } from "../../../../app/application/service/connection-mongo"
+import { Product } from "../../../../app/domain/data/entity/product"
+import { ProductDataAccessBuilder } from "../../../../app/infrastructure/service/data-access/product-data-acces-builder"
+import { ProductControllerImpl } from "../../../../app/presentation/controller/product-controller"
+import { InternalError } from '../../../../app/application/data/http-data-response-builder'
 
 describe('Testes do ProductControllerImpl', () => {
   it('deve criar um produto', async () => {
