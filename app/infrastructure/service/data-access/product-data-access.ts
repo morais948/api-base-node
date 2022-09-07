@@ -1,9 +1,12 @@
 import { DataResponse } from '../../../application/data/data-response'
 import { Product } from '../../../domain/data/entity/product'
 import { Connection } from 'mongoose'
+import { ObjectId} from 'mongodb'
 
 export interface ProductDataAccess {
   create(productDto: Product): Promise<DataResponse<Product>>
+
+  update(productDto: Product): Promise<DataResponse<Product>>
 
   get(): Promise<DataResponse<Product[]>>
 }
@@ -25,7 +28,7 @@ export class ProductDataAccessImpl implements ProductDataAccess {
       })
 
       return {
-        success: false,
+        success: true,
         data: {
           ...productDto,
           id: dataResponse.insertedId.toString()
@@ -46,7 +49,7 @@ export class ProductDataAccessImpl implements ProductDataAccess {
       const dataResponse = await this._connection.db.collection('products').find({}).toArray()
 
       return {
-        success: false,
+        success: true,
         data: dataResponse.map((el: any) => {
           return {
             id: el._id,
@@ -63,6 +66,47 @@ export class ProductDataAccessImpl implements ProductDataAccess {
         data: null,
         errors: []
       } as DataResponse<Product[]>
+    }
+  }
+
+  async update(productDto: Product): Promise<DataResponse<Product>> {
+    try {
+      const dataResponse = await this._connection.db.collection('products').updateOne(
+        {
+          _id: new ObjectId(productDto.id)
+        },
+        {
+          $set: {
+            name: productDto.name,
+            price: productDto.price,
+            description: productDto.description
+          }
+        }
+      )
+
+      if(dataResponse.modifiedCount > 0){
+        return {
+          success: true,
+          data: productDto,
+          errors: []
+        }
+      }
+
+      return {
+        success: false,
+        data: null,
+        errors: [
+          {
+            message: "Nenhum registro alterado."
+          }
+        ]
+      }
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        errors: []
+      }
     }
   }
 }

@@ -203,4 +203,113 @@ describe('Testes do ProductControllerImpl', () => {
     expect(responseData.body.data).toBe(null)
     expect(responseData.body.errors).toStrictEqual([InternalError])
   })
+
+  it('deve atualizar um produto', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProduct = {
+      id: '631380461b68aafd51f2ad5e',
+      name: 'Televisão',
+      description: 'Tv LED',
+      price: 1899.99
+    } as Product
+
+    const dataResponse = {
+      success: true,
+      data: doubleProduct,
+      errors: []
+    } as DataResponse<Product>
+
+    productDataAccess.update = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.update(doubleProduct)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(200)
+    expect(responseData.body.success).toBe(true)
+    expect(responseData.body.data).toStrictEqual(doubleProduct)
+    expect(responseData.body.errors).toStrictEqual([])
+  })
+
+  it('deve falhar ao tentar atualizar um produto e retornar um erro personalizado', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProduct = {
+      id: '631380461b68aafd51f2ad5e',
+      name: 'Televisão',
+      description: 'Tv LED',
+      price: 1899.99
+    } as Product
+
+    const dataResponse = {
+      success: false,
+      data: null,
+      errors: [
+        {
+          message: "Erro indeterminado."
+        }
+      ]
+    } as DataResponse<Product>
+
+    productDataAccess.update = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.update(doubleProduct)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(400)
+    expect(responseData.body.success).toBe(false)
+    expect(responseData.body.data).toStrictEqual(null)
+    expect(responseData.body.errors).toStrictEqual(
+      [
+        {
+          message: "Erro indeterminado."
+        }
+      ]
+    )
+  })
+
+  it('deve falhar ao tentar atualizar um produto devido a um erro interno', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProduct = {
+      id: '631380461b68aafd51f2ad5e',
+      name: 'Televisão',
+      description: 'Tv LED',
+      price: 1899.99
+    } as Product
+
+    const dataResponse = {
+      success: false,
+      data: null,
+      errors: []
+    } as DataResponse<Product>
+
+    productDataAccess.update = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.update(doubleProduct)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(500)
+    expect(responseData.body.success).toBe(false)
+    expect(responseData.body.data).toStrictEqual(null)
+    expect(responseData.body.errors).toStrictEqual(
+      [
+        {
+          message: "Erro interno."
+        }
+      ]
+    )
+  })
 })

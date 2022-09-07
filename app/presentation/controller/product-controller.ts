@@ -6,6 +6,8 @@ import { HttpDataResponseBuilder } from "../../application/data/http-data-respon
 export interface ProductController {
   create(product: Product): Promise<HttpDataResponse<Product>>
 
+  update(product: Product): Promise<HttpDataResponse<Product>>
+
   get(): Promise<HttpDataResponse<Product[]>>
 }
 
@@ -31,6 +33,29 @@ export class ProductControllerImpl {
       return new HttpDataResponseBuilder<Product>()
         .create()
         .withCreatedMessage(responseData.data)
+        .build()
+    }
+
+    return new HttpDataResponseBuilder<Product>()
+      .create()
+      .withInternalErrorMessage()
+      .build()
+  }
+
+  async update(product: Product): Promise<HttpDataResponse<Product>> {
+    const responseData = await this.productDataAccess.update(product)
+
+    if (responseData.errors.length > 0 && !responseData.success) {
+      return new HttpDataResponseBuilder<Product>()
+        .create()
+        .withInfoErrorMessage(responseData.errors)
+        .build()
+    }
+
+    if (responseData.data) {
+      return new HttpDataResponseBuilder<Product>()
+        .create()
+        .withOkMessage(responseData.data)
         .build()
     }
 

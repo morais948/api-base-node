@@ -5,7 +5,7 @@ const Router: express.Router = express.Router()
 import { Product } from '../domain/data/entity/product';
 import { container } from '../container';
 
-Router.post('/product/create', async (req: express.Request, res: express.Response) => {
+Router.post('/product', async (req: express.Request, res: express.Response) => {
 
     const {name, price, description} = req.body
     const productData = {
@@ -17,6 +17,23 @@ Router.post('/product/create', async (req: express.Request, res: express.Respons
     const containerInject = container()
     const productController = await containerInject.createProductController()
     const productResponse = await productController.create(productData)
+
+    res.status(productResponse.statusCode).json(productResponse)
+})
+
+Router.put('/product', async (req: express.Request, res: express.Response) => {
+
+    const {id, name, price, description} = req.body
+    const productData = {
+        id,
+        name, 
+        price, 
+        description
+    } as Product
+
+    const containerInject = container()
+    const productController = await containerInject.createProductController()
+    const productResponse = await productController.update(productData)
 
     res.status(productResponse.statusCode).json(productResponse)
 })
