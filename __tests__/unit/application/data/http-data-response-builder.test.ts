@@ -1,5 +1,6 @@
-import { HttpDataResponseBuilder } from "../../../../app/application/data/http-data-response-builder"
-import { Product } from "../../../../app/domain/data/entity/product"
+
+import { Product } from "../../../../app/product/domain/data/entity/product"
+import { HttpDataResponseBuilder } from "../../../../app/shared/application/data/http-data-response-builder"
 
 describe('Testes do HttpDataResponseBuilder', () => {
   it('deve retornar um objeto HttpDataResponseBuilder de atualização', () => {

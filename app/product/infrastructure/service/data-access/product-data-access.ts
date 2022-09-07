@@ -1,7 +1,8 @@
-import { DataResponse } from '../../../application/data/data-response'
+
 import { Product } from '../../../domain/data/entity/product'
 import { Connection } from 'mongoose'
 import { ObjectId} from 'mongodb'
+import { DataResponse } from '../../../../shared/application/data/data-response'
 
 export interface ProductDataAccess {
   create(productDto: Product): Promise<DataResponse<Product>>

@@ -1,7 +1,9 @@
-import { HttpDataResponse } from "../../application/data/http-data-response";
+
 import { ProductDataAccess } from "../../infrastructure/service/data-access/product-data-access";
 import { Product } from "../../domain/data/entity/product";
-import { HttpDataResponseBuilder } from "../../application/data/http-data-response-builder";
+import { HttpDataResponse } from "../../../shared/application/data/http-data-response";
+import { HttpDataResponseBuilder } from "../../../shared/application/data/http-data-response-builder";
+
 
 export interface ProductController {
   create(product: Product): Promise<HttpDataResponse<Product>>

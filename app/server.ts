@@ -2,8 +2,8 @@ import * as express from 'express'
 import { Application } from 'express'
 import * as bodyParser from 'body-parser'
 import * as path from 'path'
-import cors from './main/middlewares/cors'
-import router from './main/routes'
+import cors from './product/main/middlewares/cors'
+import router from './product/main/routes'
 
 const app: Application = express()
 

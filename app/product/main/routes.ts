@@ -3,7 +3,7 @@ import * as express from 'express'
 const Router: express.Router = express.Router()
 
 import { Product } from '../domain/data/entity/product';
-import { container } from '../container';
+import { container } from '../../container';
 
 Router.post('/product', async (req: express.Request, res: express.Response) => {
 
