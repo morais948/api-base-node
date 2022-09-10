@@ -1,7 +1,7 @@
 
 import { Product } from '../../../domain/data/entity/product'
 import { Connection } from 'mongoose'
-import { ObjectId} from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { DataResponse } from '../../../../shared/application/data/data-response'
 
 export interface ProductDataAccess {

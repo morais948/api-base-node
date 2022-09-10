@@ -4,8 +4,9 @@ const Router: express.Router = express.Router()
 
 import { Product } from '../domain/data/entity/product';
 import { container } from '../../container';
+import { auth } from '../../authentication/main/middleware/auth';
 
-Router.post('/product', async (req: express.Request, res: express.Response) => {
+Router.post('/product', auth, async (req: express.Request, res: express.Response) => {
 
     const {name, price, description} = req.body
     const productData = {
@@ -21,7 +22,7 @@ Router.post('/product', async (req: express.Request, res: express.Response) => {
     res.status(productResponse.statusCode).json(productResponse)
 })
 
-Router.put('/product', async (req: express.Request, res: express.Response) => {
+Router.put('/product', auth, async (req: express.Request, res: express.Response) => {
 
     const {id, name, price, description} = req.body
     const productData = {

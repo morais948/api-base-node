@@ -1,9 +1,9 @@
 
 import mongoose, { Connection } from "mongoose"
-require('dotenv-safe').config()
+import { config } from "../data/config"
 
-const user = process.env.MONGO_USER
-const password = process.env.MONGO_PASSWORD
+const user = config.mongo.user
+const password = config.mongo.password
 
 export interface GenerateConnectionMongo {
   createConnection(): Promise<Connection>

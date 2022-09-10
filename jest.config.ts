@@ -8,7 +8,7 @@ module.exports = {
   collectCoverageFrom: [
     'app/**/*.ts', 
     'app/**/*.js', 
-    '!app/main/**',
+    '!app/**/main/**',
     '!app/api.ts',
     '!app/server.ts',
     '!app/container.ts',

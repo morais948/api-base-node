@@ -1,6 +1,6 @@
 import * as request from "supertest"
-import { Product } from "../../app/domain/data/entity/product"
-import app from "../../app/server"
+import { Product } from "../../../app/product/domain/data/entity/product"
+import app from "../../../app/server"
 
 describe('Testes do Product', () => {
   it('deve criar com sucesso um produto', async () => {
