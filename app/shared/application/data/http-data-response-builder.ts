@@ -58,18 +58,6 @@ export class HttpDataResponseBuilder<T> {
     return this
   }
 
-  withNotBodyMessageSuccess(data: T): HttpDataResponseBuilder<T> {
-    this._instance = {
-      statusCode: 204,
-      body: {
-        success: true,
-        data: data,
-        errors: []
-      } as DataResponse<T>
-    } as HttpDataResponse<T>
-    return this
-  }
-
   withForbiddenErrorMessage(
     errors?: ErrorDataResponse[] | null
   ): HttpDataResponseBuilder<T> {

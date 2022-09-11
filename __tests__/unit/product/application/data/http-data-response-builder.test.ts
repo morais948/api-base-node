@@ -3,27 +3,6 @@ import { Product } from "../../../../../app/product/domain/data/entity/product"
 import { HttpDataResponseBuilder } from "../../../../../app/shared/application/data/http-data-response-builder"
 
 describe('Testes do HttpDataResponseBuilder', () => {
-  it('deve retornar um objeto HttpDataResponseBuilder de atualização', () => {
-    //Arrange
-    const doubleHttpDataResponse = new HttpDataResponseBuilder()
-    const doubleProduct = {
-      id: '876sdf7576agd',
-      name: 'teste',
-      description: 'teste',
-      price: 1.70
-    } as Product
-
-    //Act
-    const response = doubleHttpDataResponse
-      .withUpdatedMessage(doubleProduct)
-      .build()
-
-    //Assert
-    expect(response.statusCode).toBe(204)
-    expect(response.body.data).toStrictEqual(doubleProduct)
-    expect(response.body.errors).toStrictEqual([])
-  })
-
   it('deve retornar um objeto HttpDataResponseBuilder de "Acesso não permitido"', () => {
     //Arrange
     const doubleHttpDataResponse = new HttpDataResponseBuilder()
