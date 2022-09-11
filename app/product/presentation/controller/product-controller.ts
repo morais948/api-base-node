@@ -10,6 +10,8 @@ export interface ProductController {
 
   update(product: Product): Promise<HttpDataResponse<Product>>
 
+  delete(productId: string): Promise<HttpDataResponse<string>>
+
   get(): Promise<HttpDataResponse<Product[]>>
 }
 
@@ -85,6 +87,29 @@ export class ProductControllerImpl {
     }
 
     return new HttpDataResponseBuilder<Product[]>()
+      .create()
+      .withInternalErrorMessage()
+      .build()
+  }
+
+  async delete(productId: string): Promise<HttpDataResponse<string>> {
+    const responseData = await this.productDataAccess.delete(productId)
+    
+    if (responseData.errors.length > 0 && !responseData.success) {
+      return new HttpDataResponseBuilder<string>()
+        .create()
+        .withInfoErrorMessage(responseData.errors)
+        .build()
+    }
+
+    if (responseData.data) {
+      return new HttpDataResponseBuilder<string>()
+        .create()
+        .withOkMessage(responseData.data)
+        .build()
+    }
+
+    return new HttpDataResponseBuilder<string>()
       .create()
       .withInternalErrorMessage()
       .build()

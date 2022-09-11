@@ -58,7 +58,7 @@ export class HttpDataResponseBuilder<T> {
     return this
   }
 
-  withUpdatedMessage(data: T): HttpDataResponseBuilder<T> {
+  withNotBodyMessageSuccess(data: T): HttpDataResponseBuilder<T> {
     this._instance = {
       statusCode: 204,
       body: {

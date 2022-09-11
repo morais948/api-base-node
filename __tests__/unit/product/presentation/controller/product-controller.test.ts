@@ -313,4 +313,98 @@ describe('Testes do ProductControllerImpl', () => {
       ]
     )
   })
+
+  it('deve deletar um produto pelo ID', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProductId = "631380461b68aafd51f2ad5e"
+
+    const dataResponse = {
+      success: false,
+      data: "Registro deletado com sucesso.",
+      errors: []
+    } as DataResponse<string>
+
+    productDataAccess.delete = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.delete(doubleProductId)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(200)
+    expect(responseData.body.success).toBe(true)
+    expect(responseData.body.data).toStrictEqual(dataResponse.data)
+    expect(responseData.body.errors).toStrictEqual([])
+  })
+
+  it('deve falhar ao tentar deletar um produto pelo id, pois ele é incorreto', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProductId = "631380461b68aafd51f2ad5e"
+
+    const dataResponse = {
+      success: false,
+      data: null,
+      errors: [
+        {
+          message: "Nenhum registro alterado."
+        }
+      ]
+    } as DataResponse<string>
+
+    productDataAccess.delete = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.delete(doubleProductId)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(400)
+    expect(responseData.body.success).toBe(false)
+    expect(responseData.body.data).toStrictEqual(null)
+    expect(responseData.body.errors).toStrictEqual(
+      [
+        {
+          message: "Nenhum registro alterado."
+        }
+      ]
+    )
+  })
+
+  it('deve falhar ao tentar deletar um produto pelo id devido a um erro interno', async () => {
+    //Arrange
+    const serviceMongo = GenerateConnectionMongoImpl.getMockInstance()
+    const productDataAccess = await new ProductDataAccessBuilder(serviceMongo).build()
+    const productController = new ProductControllerImpl(productDataAccess)
+
+    const doubleProductId = "631380461b68aafd51f2ad5e"
+
+    const dataResponse = {
+      success: false,
+      data: null,
+      errors: []
+    } as DataResponse<string>
+
+    productDataAccess.delete = jest.fn().mockReturnValue(dataResponse)
+
+    //Act 
+    const responseData = await productController.delete(doubleProductId)
+    
+    //Assert
+    expect(responseData.statusCode).toBe(500)
+    expect(responseData.body.success).toBe(false)
+    expect(responseData.body.data).toStrictEqual(null)
+    expect(responseData.body.errors).toStrictEqual(
+      [
+        {
+          message: "Erro interno."
+        }
+      ]
+    )
+  })
 })

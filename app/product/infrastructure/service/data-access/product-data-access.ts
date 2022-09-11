@@ -9,6 +9,8 @@ export interface ProductDataAccess {
 
   update(productDto: Product): Promise<DataResponse<Product>>
 
+  delete(productId: string): Promise<DataResponse<string>>
+
   get(): Promise<DataResponse<Product[]>>
 }
 
@@ -89,6 +91,40 @@ export class ProductDataAccessImpl implements ProductDataAccess {
         return {
           success: true,
           data: productDto,
+          errors: []
+        }
+      }
+
+      return {
+        success: false,
+        data: null,
+        errors: [
+          {
+            message: "Nenhum registro alterado."
+          }
+        ]
+      }
+    } catch (error) {
+      return {
+        success: false,
+        data: null,
+        errors: []
+      }
+    }
+  }
+
+  async delete(productId: string): Promise<DataResponse<string>>{
+    try {
+      const dataResponse = await this._connection.db.collection('products').deleteOne(
+        {
+          _id: new ObjectId(productId)
+        }
+      )
+
+      if(dataResponse.deletedCount > 0){
+        return {
+          success: true,
+          data: "Registro deletado com sucesso.",
           errors: []
         }
       }
