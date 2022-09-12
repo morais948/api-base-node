@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc -p .",
-    "start": "node ./dist/api.js",
+    "start": "node ./dist/app/api.js",
     "dev": "nodemon --legacy-watch app/api.ts --ignore __tests__",
     "test:unit:coverage": "jest __tests__/unit --coverage --silent --runInBand",
     "test:integration:coverage": "jest __tests__/integration --coverage --silent --runInBand --detectOpenHandles"

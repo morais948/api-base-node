@@ -20,6 +20,7 @@
 
 <h3>Como Rodar</h3>
 <ul>
+  <li>-> yarn</li>
   <li>-> docker compose up</li>
 </ul>
 
