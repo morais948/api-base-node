@@ -39,7 +39,7 @@ Router.put('/product', auth, async (req: express.Request, res: express.Response)
     res.status(productResponse.statusCode).json(productResponse)
 })
 
-Router.delete('/product/:id', async (req: express.Request, res: express.Response) => {
+Router.delete('/product/:id', auth, async (req: express.Request, res: express.Response) => {
     const { id } = req.params
 
     const containerInject = container()
