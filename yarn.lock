@@ -2685,7 +2685,7 @@ mongodb-memory-server@8.8.0:
     mongodb-memory-server-core "8.8.0"
     tslib "^2.4.0"
 
-mongodb@*:
+mongodb@*, mongodb@4.9.1:
   version "4.9.1"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-4.9.1.tgz#0c769448228bcf9a6aa7d16daa3625b48312479e"
   integrity sha512-ZhgI/qBf84fD7sI4waZBoLBNJYPQN5IOC++SBCiPiyhzpNKOxN/fi0tBHvH2dEC42HXtNEbFB0zmNz4+oVtorQ==
@@ -2694,18 +2694,6 @@ mongodb@*:
     denque "^2.1.0"
     mongodb-connection-string-url "^2.5.3"
     socks "^2.7.0"
-  optionalDependencies:
-    saslprep "^1.0.3"
-
-mongodb@4.8.1:
-  version "4.8.1"
-  resolved "https://registry.npmjs.org/mongodb/-/mongodb-4.8.1.tgz"
-  integrity sha512-/NyiM3Ox9AwP5zrfT9TXjRKDJbXlLaUDQ9Rg//2lbg8D2A8GXV0VidYYnA/gfdK6uwbnL4FnAflH7FbGw3TS7w==
-  dependencies:
-    bson "^4.6.5"
-    denque "^2.0.1"
-    mongodb-connection-string-url "^2.5.2"
-    socks "^2.6.2"
   optionalDependencies:
     saslprep "^1.0.3"
 
@@ -2721,14 +2709,14 @@ mongodb@~4.7.0:
   optionalDependencies:
     saslprep "^1.0.3"
 
-mongoose@^6.5.2:
-  version "6.5.2"
-  resolved "https://registry.npmjs.org/mongoose/-/mongoose-6.5.2.tgz"
-  integrity sha512-3CFDrSLtK2qjM1pZeZpLTUyqPRkc11Iuh74ZrwS4IwEJ3K2PqGnmyPLw7ex4Kzu37ujIMp3MAuiBlUjfrcb6hw==
+mongoose@^6.6.0:
+  version "6.6.0"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-6.6.0.tgz#40cfef85e34fb6903fa5fc246d534bbd80da226e"
+  integrity sha512-5sS0D7qbmfT4G/nODkJhx5l2qvhqLMplhMlp08Wea8eoi6O/B6b+o1ukUEKjjm1MV8dAS3w8kx47R/klYKLPpQ==
   dependencies:
     bson "^4.6.5"
     kareem "2.4.1"
-    mongodb "4.8.1"
+    mongodb "4.9.1"
     mpath "0.9.0"
     mquery "4.0.3"
     ms "2.1.3"
