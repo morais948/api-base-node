@@ -1,8 +1,8 @@
 
 import { Product } from '../../../domain/data/entity/product'
 import { Connection } from 'mongoose'
-import { ObjectId } from 'mongodb'
 import { DataResponse } from '../../../../shared/application/data/data-response'
+import mongoose from 'mongoose'
 
 export interface ProductDataAccess {
   create(productDto: Product): Promise<DataResponse<Product>>
@@ -76,7 +76,7 @@ export class ProductDataAccessImpl implements ProductDataAccess {
     try {
       const dataResponse = await this._connection.db.collection('products').updateOne(
         {
-          _id: new ObjectId(productDto.id)
+          _id: new mongoose.Types.ObjectId(productDto.id)
         },
         {
           $set: {
@@ -117,7 +117,7 @@ export class ProductDataAccessImpl implements ProductDataAccess {
     try {
       const dataResponse = await this._connection.db.collection('products').deleteOne(
         {
-          _id: new ObjectId(productId)
+          _id: new mongoose.Types.ObjectId(productId)
         }
       )
 
