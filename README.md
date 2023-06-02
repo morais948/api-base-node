@@ -24,5 +24,5 @@
   <li>-> docker compose up</li>
 </ul>
 
-<h3>Se de alguma forma essa API foi útil para você, deixe seu <i>STAR</i></h3>
+<h3>Se de alguma forma essa API foi útil para você, deixe seu <i>STAR!</i></h3>
 <img src="https://2.bp.blogspot.com/-Ur4gsaaQoXc/XgFoOvAIDOI/AAAAAAAMy3M/gJfkIJGffIsCwydHhjc-kHjrUF23o7fFACLcBGAsYHQ/s1600/AS0006179_00.gif">
